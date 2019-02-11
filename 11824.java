@@ -2,7 +2,7 @@ import java.util.*;
 public class Main {
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
-		long total = 0;
+		int total = 0;
 		int i = 1;
 		int discard = sc.nextInt();
 		PriorityQueue<Integer> min = new PriorityQueue<Integer>(Collections.reverseOrder());

@@ -5,23 +5,22 @@ class Main {
 		sc.nextLine();
 		String line;
 		while((line = sc.nextLine()) != null) {
-			int n = line.length();
-			int i, j, sub;
-			int mem[][] = new int[n][n];
-			
-			for (i = 0; i < n; i++) {
-				mem[i][i] = 1;
-			}
-			for (sub = 2; sub <= n; sub++) {
-				for (i = 0; i < n - sub + 1; i++) {
-					j = i + sub - 1;
-					
-					if (line.charAt(i) == line.charAt(j) && sub == 2) mem[i][j] = 2;
-					else if (line.charAt(i) == line.charAt(j)) mem[i][j] = mem[i+1][j-1] + 2;
-					else mem[i][j] = (mem[i][j-1] > mem[i+1][j]) ? mem[i][j-1] : mem[i+1][j];
-				}
-			}
-			System.out.println(mem[0][n-1]);
+			System.out.println(helper(line, 0, line.length() - 1, new Integer[s.length()][s.length()]));
 		}
 	}
+	
+	public int helper(String s, int i, int j, Integer[][] memo) {
+        if (memo[i][j] != null) {
+            return memo[i][j];
+        }
+        if (i > j)      return 0;
+        if (i == j)     return 1;
+        
+        if (s.charAt(i) == s.charAt(j)) {
+            memo[i][j] = helper(s, i + 1, j - 1, memo) + 2;
+        } else {
+            memo[i][j] = Math.max(helper(s, i + 1, j, memo), helper(s, i, j - 1, memo));
+        }
+        return memo[i][j];
+    }
 }
